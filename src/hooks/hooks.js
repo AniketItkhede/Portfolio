@@ -59,3 +59,17 @@ export function useTypewriter(words, speed = 90, pause = 2000) {
 
   return display;
 }
+
+/**
+ * useWindowSize
+ * Returns live { width, height } of the browser window.
+ */
+export function useWindowSize() {
+  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  useEffect(() => {
+    const handle = () => setSize({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener("resize", handle);
+    return () => window.removeEventListener("resize", handle);
+  }, []);
+  return size;
+}

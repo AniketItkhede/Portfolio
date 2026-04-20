@@ -1,12 +1,16 @@
 // ─────────────────────────────────────────────
-//  Hero.jsx
+//  Hero.jsx  —  Fully responsive
 // ─────────────────────────────────────────────
-import { useState } from "react";
-import { useTypewriter } from "../hooks/hooks";
-import { S, LIME }       from "../styles/styles";
-import { ROLES, TECH_PILLS, OWNER } from "../data/portfolioData";
+import { useState }                      from "react";
+import { useTypewriter, useWindowSize }  from "../hooks/hooks";
+import { S, LIME }                       from "../styles/styles";
+import { ROLES, TECH_PILLS, OWNER }      from "../data/portfolioData";
 
-/* ── SVG icons (inline, no external lib needed) ── */
+/* ── Breakpoints ── */
+const BP_TABLET = 900;
+const BP_MOBILE = 600;
+
+/* ────────────────── Icons ────────────────── */
 const LinkedInIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -25,11 +29,10 @@ const ResumeIcon = () => (
     <polyline points="14 2 14 8 20 8"/>
     <line x1="16" y1="13" x2="8" y2="13"/>
     <line x1="16" y1="17" x2="8" y2="17"/>
-    <polyline points="10 9 9 9 8 9"/>
   </svg>
 );
 
-/* ── Social link button ── */
+/* ────────────────── SocialBtn ────────────────── */
 function SocialBtn({ href, icon, label, download = false }) {
   return (
     <a
@@ -55,103 +58,179 @@ function SocialBtn({ href, icon, label, download = false }) {
   );
 }
 
-export default function Hero() {
-  const typewritten = useTypewriter(ROLES);
+/* ────────────────── ProfilePhoto ────────────────── */
+function ProfilePhoto({ isMobile, isTablet }) {
   const [imgError, setImgError] = useState(false);
 
-  return (
-    <section id="home" style={S.hero}>
+  /* Scale image size based on breakpoint */
+  const imgSize   = isMobile ? 200 : isTablet ? 240 : 290;
+  const wrapSize  = isMobile ? 240 : isTablet ? 280 : 340;
+  const wrapH     = isMobile ? 260 : isTablet ? 310 : 400;
 
-      {/* ── Left: Text Content ── */}
-      <div style={{ animation: "slideInLeft 0.9s ease forwards" }}>
+  const wrapStyle = {
+    position: "relative",
+    width: wrapSize,
+    height: wrapH,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: isMobile ? "2rem auto 0" : "0 auto",
+  };
+
+  const imgStyle = {
+    width: imgSize,
+    height: Math.round(imgSize * 1.2),
+    objectFit: "cover",
+    objectPosition: "center top",
+    borderRadius: "40% 60% 55% 45% / 50% 45% 55% 50%",
+    border: `2.5px solid ${LIME}66`,
+    position: "relative",
+    zIndex: 2,
+    animation: "morphBlob 7s ease-in-out infinite",
+    display: "block",
+  };
+
+  return (
+    <div style={wrapStyle}>
+      {/* Rings */}
+      <div style={{ ...S.imgRingOuter, inset: isMobile ? -10 : -16 }} />
+      <div style={{ ...S.imgRingInner, inset: isMobile ? -20 : -32 }} />
+
+      {/* Photo / Fallback */}
+      {!imgError ? (
+        <img
+          src={OWNER.photo}
+          alt={OWNER.name}
+          style={imgStyle}
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <div style={{ ...imgStyle, background: "#0d1510", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6 }}>
+          <div style={{ fontFamily: "'Syne',sans-serif", fontSize: isMobile ? "2.5rem" : "3.5rem", fontWeight: 800, color: LIME }}>
+            {OWNER.name.split(" ").map(n => n[0]).join("")}
+          </div>
+          <div style={{ fontSize: 11, color: "#c0ddc0" }}>Your Photo Here</div>
+        </div>
+      )}
+
+      {/* Floating badges — hide on mobile to avoid overflow */}
+      {!isMobile && (
+        <>
+          <div style={{ ...S.floatBadge, top: "6%", right: "-14%" }}>
+            <span style={S.badgeDot} /><span style={S.badgeText}>Open to Work</span>
+          </div>
+          <div style={{ ...S.floatBadge, bottom: "12%", left: "-16%" }}>
+            <span style={S.badgeDot} /><span style={S.badgeText}>5+ yrs exp</span>
+          </div>
+        </>
+      )}
+
+      {/* On mobile show badges inline below image */}
+      {isMobile && (
+        <div style={{ position: "absolute", bottom: -10, display: "flex", gap: 8, zIndex: 4, flexWrap: "wrap", justifyContent: "center" }}>
+          <div style={{ ...S.floatBadge, position: "static" }}>
+            <span style={S.badgeDot} /><span style={S.badgeText}>Open to Work</span>
+          </div>
+          <div style={{ ...S.floatBadge, position: "static" }}>
+            <span style={S.badgeDot} /><span style={S.badgeText}>5+ yrs exp</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ────────────────── Hero ────────────────── */
+export default function Hero() {
+  const typewritten    = useTypewriter(ROLES);
+  const { width }      = useWindowSize();
+  const isMobile       = width < BP_MOBILE;
+  const isTablet       = width >= BP_MOBILE && width < BP_TABLET;
+
+  /* Layout switches */
+  const heroStyle = {
+    ...S.hero,
+    /* Single column on mobile/tablet, two columns on desktop */
+    gridTemplateColumns: width < BP_TABLET ? "1fr" : "1fr 1fr",
+    minHeight:           isMobile ? "auto" : "90vh",
+    padding:             isMobile ? "3rem 1.2rem 4rem" : isTablet ? "3rem 2rem" : "4rem 3rem",
+    gap:                 isMobile ? "0" : "3rem",
+    /* Photo appears first on mobile (order swap via flexDirection) */
+  };
+
+  return (
+    <section id="home" style={heroStyle}>
+
+      {/* ── Photo first on mobile ── */}
+      {isMobile && (
+        <div style={{ animation: "slideInLeft 0.7s ease forwards", display: "flex", justifyContent: "center" }}>
+          <ProfilePhoto isMobile={isMobile} isTablet={isTablet} />
+        </div>
+      )}
+
+      {/* ── Left: Text ── */}
+      <div style={{ animation: "slideInLeft 0.9s ease forwards", marginTop: isMobile ? "3rem" : 0 }}>
         <div style={S.heroEyebrow}>
           <span style={S.eyebrowDot} />
           <span style={S.eyebrowText}>{OWNER.tagline}</span>
         </div>
 
-        <h1 style={S.heroName}>{OWNER.name}</h1>
+        <h1 style={{
+          ...S.heroName,
+          fontSize: isMobile ? "2.2rem" : isTablet ? "2.8rem" : undefined,
+          textAlign: isMobile ? "center" : "left",
+        }}>
+          {OWNER.name}
+        </h1>
 
-        <div style={S.typewriterRow}>
+        <div style={{ ...S.typewriterRow, justifyContent: isMobile ? "center" : "flex-start" }}>
           <span style={S.typewriterText}>{typewritten}</span>
           <span style={{ ...S.cursor, animation: "blink 1s step-end infinite" }}>|</span>
         </div>
 
-        <p style={S.heroDesc}>{OWNER.bio}</p>
+        <p style={{ ...S.heroDesc, textAlign: isMobile ? "center" : "left", maxWidth: isMobile ? "100%" : 460 }}>
+          {OWNER.bio}
+        </p>
 
-        {/* ── CTA Buttons ── */}
-        <div style={S.heroBtns}>
-          <a href="#projects">
-            <button style={S.btnPrimary}>View Projects →</button>
-          </a>
-          <a href="#contact">
-            <button style={S.btnGhost}>Let's Talk</button>
-          </a>
+        {/* CTA Buttons */}
+        <div style={{ ...S.heroBtns, justifyContent: isMobile ? "center" : "flex-start" }}>
+          <a href="#projects"><button style={S.btnPrimary}>View Projects →</button></a>
+          <a href="#contact"><button style={S.btnGhost}>Let's Talk</button></a>
         </div>
 
-        {/* ── Social Links Row ── */}
-        <div style={socialRow}>
-          <SocialBtn
-            href={OWNER.linkedin}
-            icon={<LinkedInIcon />}
-            label="LinkedIn"
-          />
-          <SocialBtn
-            href={OWNER.github}
-            icon={<GitHubIcon />}
-            label="GitHub"
-          />
-          <SocialBtn
-            href={OWNER.resume}
-            icon={<ResumeIcon />}
-            label="Resume"
-            download
-          />
-          {/* Divider + email */}
-          <span style={divider} />
-          <span style={emailText}>{OWNER.email}</span>
-        </div>
-
-        {/* ── Tech Pills ── */}
-        <div style={{ ...S.techStack, marginTop: "1.4rem" }}>
-          {TECH_PILLS.map((t) => (
-            <span key={t} style={S.techPill}>{t}</span>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Right: Profile Photo ── */}
-      <div style={{ animation: "slideInRight 0.9s ease forwards", display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <div style={S.imageWrapper}>
-          <div style={S.imgRingOuter} />
-          <div style={S.imgRingInner} />
-
-          {!imgError ? (
-            <img
-              src={OWNER.photo}
-              alt={OWNER.name}
-              style={S.profileImg}
-              onError={() => setImgError(true)}
-            />
-          ) : (
-            <div style={{ ...S.imgPlaceholder, display: "flex" }}>
-              <div style={S.placeholderInitials}>
-                {OWNER.name.split(" ").map((n) => n[0]).join("")}
-              </div>
-              <div style={S.placeholderLabel}>Your Photo Here</div>
-              <div style={S.placeholderHint}>Set OWNER.photo in portfolioData.js</div>
-            </div>
+        {/* Social links */}
+        <div style={{ ...socialRow, justifyContent: isMobile ? "center" : "flex-start" }}>
+          <SocialBtn href={OWNER.linkedin} icon={<LinkedInIcon />} label="LinkedIn" />
+          <SocialBtn href={OWNER.github}   icon={<GitHubIcon />}   label="GitHub"   />
+          <SocialBtn href={OWNER.resume}   icon={<ResumeIcon />}   label="Resume" download />
+          {!isMobile && (
+            <>
+              <span style={divider} />
+              <span style={emailText}>{OWNER.email}</span>
+            </>
           )}
+        </div>
 
-          <div style={{ ...S.floatBadge, top: "6%", right: "-14%" }}>
-            <span style={S.badgeDot} />
-            <span style={S.badgeText}>Open to Work</span>
+        {/* Email below on mobile */}
+        {isMobile && (
+          <div style={{ textAlign: "center", marginTop: "0.6rem" }}>
+            <span style={emailText}>{OWNER.email}</span>
           </div>
-          <div style={{ ...S.floatBadge, bottom: "12%", left: "-16%" }}>
-            <span style={S.badgeDot} />
-            <span style={S.badgeText}>1+ yrs exp</span>
-          </div>
+        )}
+
+        {/* Tech pills */}
+        <div style={{ ...S.techStack, marginTop: "1.4rem", justifyContent: isMobile ? "center" : "flex-start" }}>
+          {TECH_PILLS.map(t => <span key={t} style={S.techPill}>{t}</span>)}
         </div>
       </div>
+
+      {/* ── Right: Photo (desktop / tablet only) ── */}
+      {!isMobile && (
+        <div style={{ animation: "slideInRight 0.9s ease forwards", display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <ProfilePhoto isMobile={isMobile} isTablet={isTablet} />
+        </div>
+      )}
+
     </section>
   );
 }
