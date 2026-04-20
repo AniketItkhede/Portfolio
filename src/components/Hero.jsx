@@ -101,7 +101,7 @@ function ProfilePhoto({ isMobile, isTablet }) {
         <img
           src={OWNER.photo}
           alt={OWNER.name}
-          style={imgStyle}
+          style={S.profileImg}
           onError={() => setImgError(true)}
         />
       ) : (
@@ -109,7 +109,7 @@ function ProfilePhoto({ isMobile, isTablet }) {
           <div style={{ fontFamily: "'Syne',sans-serif", fontSize: isMobile ? "2.5rem" : "3.5rem", fontWeight: 800, color: LIME }}>
             {OWNER.name.split(" ").map(n => n[0]).join("")}
           </div>
-          <div style={{ fontSize: 11, color: "#c0ddc0" }}>Your Photo Here</div>
+          <div style={{ fontSize: 11, color: "#c0ddc0" }}>pr</div>
         </div>
       )}
 
@@ -120,7 +120,7 @@ function ProfilePhoto({ isMobile, isTablet }) {
             <span style={S.badgeDot} /><span style={S.badgeText}>Open to Work</span>
           </div>
           <div style={{ ...S.floatBadge, bottom: "12%", left: "-16%" }}>
-            <span style={S.badgeDot} /><span style={S.badgeText}>5+ yrs exp</span>
+            <span style={S.badgeDot} /><span style={S.badgeText}>1+ yrs exp</span>
           </div>
         </>
       )}
@@ -132,7 +132,7 @@ function ProfilePhoto({ isMobile, isTablet }) {
             <span style={S.badgeDot} /><span style={S.badgeText}>Open to Work</span>
           </div>
           <div style={{ ...S.floatBadge, position: "static" }}>
-            <span style={S.badgeDot} /><span style={S.badgeText}>5+ yrs exp</span>
+            <span style={S.badgeDot} /><span style={S.badgeText}>1+ yrs exp</span>
           </div>
         </div>
       )}
