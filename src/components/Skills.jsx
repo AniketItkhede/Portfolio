@@ -63,10 +63,10 @@ export default function Skills() {
         </div>
       </FadeUp>
 
-      {/* ════ DATA ENGINEERING ════ */}
+      {/* ════ AI/ML Engineering ════ */}
       <SectionDivider
-        tag="// data_engineering"
-        title="Data Engineering"
+        tag="// AI/ML Engineering"
+        title="AI/ML Engineering"
         delay={0.05}
       />
       <div style={{ ...S.skillsGrid, marginBottom: "3.5rem" }}>

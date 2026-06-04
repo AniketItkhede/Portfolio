@@ -4,8 +4,8 @@
 import profilePhoto from "../assets/profile.jpg";
 
 export const ROLES = [
+  "AI/ML Engineer",
   "Software Developer",
-  "Data Engineer",
   "Data Analyst",
   "Pipeline Architect",
   "ETL Specialist",
@@ -13,7 +13,7 @@ export const ROLES = [
   "Streaming Wizard",
 ];
 
-export const TECH_PILLS = ["React", "Python", "SQL", "Spark", "Snowflake", "Docker"];
+export const TECH_PILLS = ["Machine Learning", "Python", "SQL", "Python", "AI"];
 
 export const NAV_LINKS = ["Home", "Projects", "Skills", "Experience","Education", "Contact"];
 
@@ -27,8 +27,8 @@ export const PROJECTS = [
   },
   {
     icon: "⚡",
-    title: "Real-Time Stream Pipeline",
-    desc: "Built a Kafka + Spark Streaming pipeline processing 2M events/sec with sub-100ms latency for financial fraud detection.",
+    title: "Car Price Prediction",
+    desc: "BDeveloped a Machine Learning model using Linear Regression to predict used car prices based on vehicle features, with a Streamlit web application for real-time price estimation.",
     tags: ["Apache Kafka", "Spark", "Python", "AWS Kinesis"],
     metric: "2M events/sec",
   },
@@ -41,8 +41,8 @@ export const PROJECTS = [
   },
   {
     icon: "🔄",
-    title: "Automated ETL Orchestration",
-    desc: "Designed 120+ Airflow DAGs replacing manual scripts, cutting pipeline failure rate from 12% to 0.3%.",
+    title: "Movie Recomdation System",
+    desc: "Built a Machine Learning-based recommendation engine that suggests similar movies to users based on content features and user preferences, improving personalized movie discovery.",
     tags: ["Apache Airflow", "PostgreSQL", "Docker", "GCP"],
     metric: "0.3% failure rate",
   },
@@ -77,12 +77,12 @@ export const PROJECTS = [
 ];
 
 export const SKILLS = [
-  { name: "Apache Spark",      level: 93, cat: "Processing"    },
-  { name: "Apache Kafka",      level: 88, cat: "Streaming"     },
+  { name: "Machine Learning",      level: 93, cat: "Processing"    },
+  { name: "Scikit-Learn",      level: 88, cat: "Library"     },
   { name: "Python / PySpark",  level: 95, cat: "Languages"     },
   { name: "SQL / dbt",         level: 91, cat: "Transform"     },
-  { name: "Airflow / Prefect", level: 85, cat: "Orchestration" },
-  { name: "AWS / Azure / GCP", level: 82, cat: "Cloud"         },
+  { name: "LLM",               level: 82, cat: "AI" },
+  { name: "Pandas",            level: 82,cat: "Py Lib"         },
   { name: "Snowflake / BigQuery", level: 87, cat: "Warehouse"  },
   { name: "Docker / Kubernetes",  level: 78, cat: "DevOps"     },
 ];
@@ -122,8 +122,8 @@ export const TIMELINE = [
 export const OWNER = {
   name: "Aniket Itkhede",
   email: "aniketitkhede23@gmail.com",
-  tagline: "Data & Software Engineering · Pipeline Architecture",
-  bio: "I build scalable data pipelines and robust software systems, combining data engineering and software development to deliver efficient, cloud-native solutions that drive business decisions.",
+  tagline: "AI/ML Engineering · Data Science & Engineering",
+  bio: "I build AI/ML solutions by developing machine learning models, data pipelines, and intelligent systems that transform data into actionable insights and drive business value.",
   linkedin: "https://linkedin.com/in/aniket-itkhede",
   github:   "https://github.com/AniketItkhede",
   resume:   "https://drive.google.com/file/d/1-gCtDpGm3MJdmDQlN9vZnv6TiePD0TJB/view?usp=sharing",
