@@ -28,9 +28,9 @@ export const PROJECTS = [
   {
     icon: "⚡",
     title: "Car Price Prediction",
-    desc: "BDeveloped a Machine Learning model using Linear Regression to predict used car prices based on vehicle features, application for real-time price estimation.",
+    desc: "Developed a Machine Learning model using Linear Regression to predict used car prices based on vehicle features, application for real-time price estimation.",
     tags: ["ML", "Pandas", "Clustering", "KNN"],
-    metric: "Unsupervised",
+    metric: "Supervised",
   },
   {
   icon: "🛒",
@@ -101,14 +101,14 @@ export const SOFTWARE_SKILLS = [
 export const TIMELINE = [
   {
     year: "Feb 2026 - Present",
-    role: "Jr Data Analyst",
-    company: "Kay Bee Bio Oraganics Pvt Ltd",
-    desc: "Analyzed datasets using Python (Pandas, NumPy) to identify trends and data anomalies. Performed data cleaning, validation, and transformation. Generated ad hoc reports and collaborated with stakeholders to deliver analytical solutions.",
+    role: "AI/ML Intern",
+    company: "Technosoft Engineering Project Ltd",
+    desc: "Developed computer vision solutions using Python (OpenCV, NumPy) to analyze images and detect visual patterns. Performed image preprocessing, data augmentation, and model validation. Built and evaluated computer vision models and collaborated with the team to deliver AI-powered solutions.",
   },
   {
-    year: "Aug 2025 - Dec 2025",
+    year: "Feb 2026 - may 2026",
     role: "Data Analyst Intern",
-    company: "World Box Technologies Pvt Ltd",
+    company: "Kay Bee Bio Oraganics Pvt Ltd",
     desc: "Assisted in analyzing datasets using SQL and Excel to generate actionable insights for business decisions Developed dashboards and reports to track key metrics and improve data-driven performance",
   },
   {
